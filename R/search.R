@@ -35,6 +35,8 @@
 #' @return dataframe, containing eBay search results
 #' @export
 #'
+#' @importFrom magrittr %>%
+#'
 #' @examples
 #' df.items <- search_ebay(
 #'   "model train",
@@ -221,7 +223,7 @@ search_ebay <- function(keywords,
       id_cols = rank,
       names_from = attribute,
       values_from = value,
-      values_fn = list(value = first)
+      values_fn = list(value = dplyr::first)
     )
 
   return(df.items)
