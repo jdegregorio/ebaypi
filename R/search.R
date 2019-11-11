@@ -68,6 +68,7 @@ search_ebay <- function(keywords,
   if (class(search_description) != "logical") stop('Incorrect argument type. Argument "search_description" must be of class "logical"', call. = FALSE)
 
   # Check argument - categories
+  if (anyNA(categories)) categories <- NULL
   if(!is.null(categories)){
     if (! (class(categories) %in% c("numeric", "character")))  stop('Incorrect argument type. Argument "categories" must be of class "numeric" or "character"', call. = FALSE)
     if (length(categories) > 3) {
@@ -77,7 +78,10 @@ search_ebay <- function(keywords,
   }
 
   # Check argument - item_filters
-  if (!missing(item_filters) & class(item_filters) != "list") stop('Incorrect argument type. Argument "item_filters" must be of class "list"', call. = FALSE)
+  if (anyNA(item_filters)) item_filters <- NULL
+  if (!is.null(item_filters)) {
+    if (class(item_filters) != "list") stop('Incorrect argument type. Argument "item_filters" must be of class "list"', call. = FALSE)
+  }
 
   # Check argument:  n_results
   if (class(n_results) != "numeric") stop('Incorrect argument type. Argument "n_results" must be of class "numeric"', call. = FALSE)
